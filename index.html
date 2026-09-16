@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「一脑多体」智能服务机器人一体化产品方案</title>
+<style>
+:root{
+  --bg:#0B1220; --bg2:#0E1730; --card:#121E38; --card2:#16244212;
+  --line:rgba(122,150,255,.18); --line2:rgba(122,150,255,.30);
+  --txt:#E8EDF7; --sub:#9DB0D3; --dim:#6C7FA3;
+  --c1:#4F6BFF; --c2:#38D9C3; --c3:#9B7BFF; --warn:#FFB84D;
+  --grad:linear-gradient(90deg,#4F6BFF,#38D9C3);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC","Segoe UI",sans-serif;line-height:1.7;overflow-x:hidden}
+a{color:var(--c2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ===== 顶部导航 ===== */
+nav{position:sticky;top:0;z-index:99;background:rgba(11,18,32,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}
+.logo .dot{width:26px;height:26px;border-radius:8px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:15px}
+.navlinks{display:flex;gap:22px;font-size:14px}
+.navlinks a{color:var(--sub)}
+.navlinks a:hover{color:var(--c2);text-decoration:none}
+@media(max-width:900px){.navlinks{display:none}}
+
+/* ===== Hero ===== */
+header{position:relative;padding:70px 0 60px;background:radial-gradient(1200px 500px at 70% -10%,rgba(79,107,255,.25),transparent),radial-gradient(900px 400px at 10% 110%,rgba(56,217,195,.12),transparent)}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+.tagpill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);border-radius:999px;padding:5px 14px;font-size:13px;color:var(--c2);background:rgba(56,217,195,.08);margin-bottom:18px}
+h1{font-size:40px;line-height:1.28;font-weight:800;letter-spacing:.5px}
+h1 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{margin:18px 0 26px;color:var(--sub);font-size:16.5px}
+.heroimgs{position:relative}
+.heroimgs img{width:100%;border-radius:16px;border:1px solid var(--line2);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.floatcard{position:absolute;left:-14px;bottom:-18px;background:linear-gradient(135deg,#1B2A4E,#121E38);border:1px solid var(--line2);border-radius:14px;padding:12px 16px;font-size:13px;box-shadow:0 14px 34px rgba(0,0,0,.5)}
+.floatcard b{display:block;font-size:15px;color:var(--c2)}
+.btnrow{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;padding:11px 24px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;border:none}
+.btn.primary{background:var(--grad);color:#fff}
+.btn.ghost{border:1px solid var(--line2);color:var(--txt);background:transparent}
+.btn:hover{text-decoration:none;opacity:.9;transform:translateY(-1px)}
+
+/* ===== 通用 Section ===== */
+section{padding:66px 0}
+.sec-head{text-align:center;margin-bottom:42px}
+.sec-head .kicker{color:var(--c2);font-size:13px;letter-spacing:3px;font-weight:700}
+.sec-head h2{font-size:30px;margin-top:8px;font-weight:800}
+.sec-head p{color:var(--sub);margin-top:10px;max-width:820px;margin-left:auto;margin-right:auto;font-size:15px}
+.grid{display:grid;gap:18px}
+.g5{grid-template-columns:repeat(5,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:1000px){.g5{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.g5,.g4,.g3,.g2{grid-template-columns:1fr}}
+
+/* ===== 一句话定义 ===== */
+.defbox{background:linear-gradient(135deg,rgba(79,107,255,.14),rgba(56,217,195,.10));border:1px solid var(--line2);border-radius:18px;padding:34px 38px;text-align:center}
+.defbox .big{font-size:21px;font-weight:700;line-height:1.8}
+.defbox .big em{font-style:normal;color:var(--c2);border-bottom:2px solid rgba(56,217,195,.5);padding-bottom:2px}
+.defbox .plain{color:var(--sub);margin-top:14px;font-size:15px}
+
+/* ===== 能力卡片 ===== */
+.cap{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 18px;transition:.25s;position:relative;overflow:hidden}
+.cap:hover{transform:translateY(-5px);border-color:var(--line2);box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.cap .ic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.cap h3{font-size:17px;margin-bottom:4px}
+.cap .en{font-size:11.5px;color:var(--dim);letter-spacing:1px;text-transform:uppercase}
+.cap .role{display:inline-block;margin:10px 0;font-size:12.5px;color:var(--c2);border:1px dashed rgba(56,217,195,.4);border-radius:8px;padding:2px 10px}
+.cap ul{list-style:none;font-size:13.5px;color:var(--sub)}
+.cap ul li{padding:3px 0 3px 18px;position:relative}
+.cap ul li::before{content:"▸";position:absolute;left:0;color:var(--c2)}
+
+/* ===== 架构图 ===== */
+.arch{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px}
+.layer{border:1px solid var(--line2);border-radius:14px;padding:16px 18px;margin-bottom:14px;position:relative;background:var(--bg2)}
+.layer .lname{position:absolute;top:-11px;left:18px;background:var(--card);border:1px solid var(--line2);border-radius:8px;padding:1px 12px;font-size:13px;font-weight:700;color:var(--c2)}
+.layer .ldesc{font-size:12.5px;color:var(--dim);margin:4px 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line2);border-radius:8px;padding:5px 12px;font-size:13px;background:rgba(79,107,255,.08)}
+.chip.hl{background:var(--grad);color:#fff;border:none;font-weight:600}
+.chip.v{background:rgba(56,217,195,.10);border-color:rgba(56,217,195,.35)}
+.chip.p{background:rgba(155,123,255,.12);border-color:rgba(155,123,255,.35)}
+.arrowline{text-align:center;color:var(--c2);font-size:18px;margin:-6px 0 8px;opacity:.7}
+.archnote{font-size:13px;color:var(--sub);border-left:3px solid var(--c1);padding:8px 14px;background:rgba(79,107,255,.06);border-radius:0 8px 8px 0;margin-top:6px}
+
+/* ===== 避障感知与 SLAM ===== */
+.slam-intro{background:linear-gradient(135deg,rgba(56,217,195,.10),rgba(79,107,255,.12));border:1px solid var(--line2);border-radius:18px;padding:30px 34px;margin-bottom:22px}
+.slam-intro .big{font-size:18.5px;font-weight:700;line-height:1.85}
+.slam-intro .big em{font-style:normal;color:var(--c2)}
+.slam-intro .plain{color:var(--sub);margin-top:12px;font-size:14.5px}
+.sensorflow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+@media(max-width:1000px){.sensorflow{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.sensorflow{grid-template-columns:1fr}}
+.sensor{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 16px;position:relative;transition:.25s}
+.sensor:hover{border-color:var(--line2);transform:translateY(-4px)}
+.sensor .s-ic{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:10px;background:rgba(79,107,255,.16)}
+.sensor .s-name{font-size:15px;font-weight:700}
+.sensor .s-en{font-size:11px;color:var(--dim);letter-spacing:.5px;text-transform:uppercase;margin:2px 0 8px}
+.sensor .s-role{display:inline-block;font-size:12px;color:var(--c2);border:1px dashed rgba(56,217,195,.4);border-radius:8px;padding:1px 9px;margin-bottom:8px}
+.sensor ul{list-style:none;font-size:13px;color:var(--sub)}
+.sensor ul li{padding:2.5px 0 2.5px 16px;position:relative}
+.sensor ul li::before{content:"▸";position:absolute;left:0;color:var(--c2)}
+.slamgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:900px){.slamgrid{grid-template-columns:1fr}}
+.slamcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+.slamcard h4{font-size:17px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.slamcard .sub{font-size:12.5px;color:var(--dim);margin-bottom:14px}
+.slamcard .core{background:var(--bg2);border:1px solid var(--line2);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.slamcard .core b{color:var(--c2);font-size:14px}
+.slamcard .core p{font-size:13.5px;color:var(--sub);margin-top:4px}
+.slamcard ol{margin:10px 0 0 18px;font-size:13.5px;color:var(--sub)}
+.slamcard ol li{padding:3px 0}
+.slamcard ol li b{color:var(--txt)}
+.equation{background:linear-gradient(135deg,rgba(155,123,255,.14),rgba(79,107,255,.10));border:1px solid rgba(155,123,255,.4);border-radius:10px;padding:10px 16px;font-size:14.5px;color:var(--txt);text-align:center;margin:10px 0;font-weight:600;letter-spacing:.5px}
+.equation small{display:block;font-size:12px;color:var(--dim);font-weight:400;margin-top:4px}
+.pipeline{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pipe-step{flex:1;min-width:150px;background:var(--bg2);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--sub)}
+.pipe-step b{display:block;color:var(--c2);font-size:14px;margin-bottom:2px}
+.fusecols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+@media(max-width:900px){.fusecols{grid-template-columns:1fr}}
+.fusebox{border:1px solid var(--line2);border-radius:12px;padding:14px 16px;background:var(--bg2)}
+.fusebox b{color:var(--c2);font-size:14px;display:block;margin-bottom:6px}
+.fusebox p{font-size:13px;color:var(--sub)}
+.slam-note{margin-top:18px;font-size:13px;color:var(--sub);border-left:3px solid var(--c2);padding:8px 14px;background:rgba(56,217,195,.06);border-radius:0 8px 8px 0}
+
+/* ===== 行业 Tabs ===== */
+.tabs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:26px}
+.tab{border:1px solid var(--line2);background:var(--card);color:var(--sub);border-radius:999px;padding:9px 22px;font-size:15px;cursor:pointer;transition:.2s;font-weight:600}
+.tab:hover{color:var(--txt)}
+.tab.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 8px 22px rgba(79,107,255,.35)}
+.panel{display:none;animation:fade .35s}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.scene{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;align-items:start}
+@media(max-width:900px){.scene{grid-template-columns:1fr}}
+.scene img{width:100%;border-radius:12px;border:1px solid var(--line2);margin-bottom:14px}
+.scene h3{font-size:20px;margin-bottom:2px}
+.scene .who{font-size:13px;color:var(--dim);margin-bottom:12px}
+.ptable{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
+.ptable th,.ptable td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+.ptable th{background:rgba(79,107,255,.12);color:var(--txt);font-weight:700;white-space:nowrap}
+.ptable td{color:var(--sub)}
+.ptable td b{color:var(--txt)}
+.kpirow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.kpi{flex:1;min-width:120px;background:var(--bg2);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;text-align:center}
+.kpi b{display:block;font-size:19px;color:var(--c2)}
+.kpi span{font-size:12px;color:var(--dim)}
+.matchrow{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.match{font-size:12.5px;border-radius:8px;padding:3px 10px}
+.match.need{background:rgba(255,184,77,.12);border:1px solid rgba(255,184,77,.4);color:var(--warn)}
+.match.cap{background:rgba(56,217,195,.10);border:1px solid rgba(56,217,195,.4);color:var(--c2)}
+
+/* ===== 交付流程 ===== */
+.steps{counter-reset:st;display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:1000px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.steps{grid-template-columns:1fr}}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 16px;position:relative;counter-increment:st}
+.step::before{content:counter(st,decimal-leading-zero);position:absolute;top:14px;right:14px;font-size:26px;font-weight:800;color:rgba(122,150,255,.18)}
+.step h4{font-size:15.5px;color:var(--c2);margin-bottom:6px}
+.step p{font-size:13px;color:var(--sub)}
+.step .du{display:inline-block;font-size:11.5px;color:var(--dim);border:1px solid var(--line2);border-radius:6px;padding:1px 8px;margin-bottom:8px}
+
+/* ===== 风险与边界 ===== */
+.risk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.risk h4{font-size:15px;color:var(--warn);margin-bottom:8px}
+.risk p{font-size:13.5px;color:var(--sub)}
+.risk .fix{margin-top:8px;font-size:13px;color:var(--c2)}
+
+/* ===== 创作者署名 ===== */
+.author-badge{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;background:linear-gradient(135deg,rgba(79,107,255,.16),rgba(56,217,195,.14));border:1px solid rgba(56,217,195,.45);border-radius:999px;padding:7px 18px 7px 10px;font-size:13.5px;color:var(--txt);box-shadow:0 8px 24px rgba(56,217,195,.12)}
+.author-badge .a-ava{width:28px;height:28px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;flex-shrink:0}
+.author-badge b{color:var(--c2);font-weight:700}
+.author-badge .a-sep{color:var(--dim);font-size:11px}
+/* ===== 结语 ===== */
+footer{border-top:1px solid var(--line);padding:36px 0 46px;color:var(--dim);font-size:13px;text-align:center}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(80px);background:linear-gradient(90deg,#4F6BFF,#38D9C3);color:#fff;padding:10px 22px;border-radius:999px;font-size:14px;opacity:0;transition:.35s;z-index:100;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+</style>
+<nav><div class="wrap">
+  <div class="logo"><span class="dot">◈</span>「一脑多体」智能服务机器人方案</div>
+  <div class="navlinks">
+    <a href="#def">方案定义</a><a href="#caps">五大能力</a><a href="#arch">系统架构</a>
+    <a href="#nav">避障感知</a><a href="#scenes">行业方案</a><a href="#flow">交付流程</a><a href="#risk">边界说明</a>
+  </div>
+</div></nav>
+
+<header><div class="wrap hero">
+  <div>
+    <span class="author-badge"><span class="a-ava">佳</span>创作者：<b>佳佳</b><span class="a-sep">|</span>微信：<b>xiaojia_2020</b></span>
+    <span class="tagpill">◆ 个人作品 · 智能服务机器人一体化产品方案（原创设计）</span>
+    <h1>把语音、视觉、大模型、<br>调度和机器人设备<br>组合成<span class="grad">一套可交付的产品</span></h1>
+    <p class="lead">五大能力不是五个产品，而是一台「会听、会看、会想、会派活、会干活」的完整服务系统：智能大脑负责理解与决策，调度系统负责分派，机器人本体负责执行，形成覆盖酒店、餐厅、商场、工厂、物业的标准化交付方案。</p>
+    <div class="btnrow">
+      <button class="btn primary" onclick="document.getElementById('scenes').scrollIntoView()">看五大行业方案</button>
+      <button class="btn ghost" onclick="document.getElementById('arch').scrollIntoView()">先看系统架构</button>
+    </div>
+  </div>
+  <div class="heroimgs">
+    <img src="image-20260916031638-01-df61b9ef.jpg" alt="智慧商业场景中的服务机器人">
+    <div class="floatcard"><b>1 套智能大脑 × 5 大行业</b>同一底座，换场景不换系统</div>
+  </div>
+</div></header>
+
+<!-- ============ 一句话定义 ============ -->
+<section id="def"><div class="wrap">
+  <div class="sec-head"><div class="kicker">01 · WHAT</div><h2>这个「产品方案」到底是什么？</h2></div>
+  <div class="defbox">
+    <div class="big">用 <em>大模型</em> 当大脑（听得懂人话、会推理决策），<br>用 <em>语音+视觉</em> 当眼睛耳朵（能交互、能识别现场），<br>用 <em>调度系统</em> 当指挥部（把活分给最合适的设备），<br>用 <em>机器人集群</em> 当手脚（送物、送餐、巡检、清洁），<br>打包成 <em>一套「部署即用、快速交付」的行业解决方案</em>。</div>
+    <div class="plain">说人话版本：方案交付的不是"几台机器人"，而是「机器人 + 数字员工」的组合。机器人干体力活，智能大脑干脑力活：前台接电话的是 AI，派单调度的是 AI，跑腿巡检的是机器人——人只负责例外情况和有温度的服务。方案以「AI 调度为核心、人机协同」为设计思路，并扩展到酒店、餐厅、商场、工厂、物业五个行业。</div>
+  </div>
+</div></section>
+
+<!-- ============ 五大能力 ============ -->
+<section id="caps" style="background:var(--bg2)"><div class="wrap">
+  <div class="sec-head"><div class="kicker">02 · CAPABILITIES</div><h2>五大能力各扮演什么角色？</h2>
+  <p>组合的关键不在单点技术，而在"谁指挥谁"。下面是五种能力在系统里的分工：</p></div>
+  <div class="grid g5">
+    <div class="cap"><div class="ic" style="background:rgba(79,107,255,.18)">🗣</div><h3>语音</h3><div class="en">Speech</div><span class="role">耳朵和嘴</span>
+      <ul><li>电话/前台 AI 应答</li><li>机器人语音交互</li><li>多方言识别</li><li>情绪安抚话术</li></ul></div>
+    <div class="cap"><div class="ic" style="background:rgba(56,217,195,.18)">👁</div><h3>视觉</h3><div class="en">Vision</div><span class="role">眼睛</span>
+      <ul><li>人脸/工服识别</li><li>安全帽/烟火检测</li><li>物品与障碍识别</li><li>仪表读数识别</li></ul></ul></div>
+    <div class="cap"><div class="ic" style="background:rgba(155,123,255,.18)">🧠</div><h3>大模型</h3><div class="en">LLM</div><span class="role">大脑</span>
+      <ul><li>理解模糊需求</li><li>生成执行工单</li><li>客服问答生成</li><li>报告与摘要</li></ul></div>
+    <div class="cap"><div class="ic" style="background:rgba(255,184,77,.18)">🚦</div><h3>调度</h3><div class="en">Dispatch</div><span class="role">指挥部</span>
+      <ul><li>任务队列与优先级</li><li>多机协同排队</li><li>电梯/门禁物联</li><li>高峰分时复用</li></ul></div>
+    <div class="cap"><div class="ic" style="background:rgba(79,107,255,.18)">🤖</div><h3>设备</h3><div class="en">Robots</div><span class="role">手脚</span>
+      <ul><li>送物/送餐机器人</li><li>清洁机器人</li><li>巡检机器人</li><li>迎宾导览机器人</li></ul></div>
+  </div>
+  <div style="margin-top:20px" class="archnote"><b>组合逻辑（重点）：</b>大模型把"人话"翻译成"工单" → 调度系统把工单分给"当下最合适的机器人" → 机器人执行时用视觉避障识别、用语音与顾客交互 → 执行结果回传大模型生成记录与汇报。五种能力串成一条<b>「听懂 → 想清 → 派对 → 干完 → 复盘」</b>的闭环，缺任何一环都不成立：没有大模型，语音只能走死板树状菜单；没有调度，多台机器人会抢电梯打架；没有设备，一切只是个聊天软件。</div>
+</div></section>
+
+<!-- ============ 架构图 ============ -->
+<section id="arch"><div class="wrap">
+  <div class="sec-head"><div class="kicker">03 · ARCHITECTURE</div><h2>系统架构：一横四纵</h2>
+  <p>一条"AI 中台"横贯上下，四种能力垂直分层。部署形态为「云端大脑 + 边缘网关 + 本体集群」。</p></div>
+  <div class="arch">
+    <div class="layer"><div class="lname">L1 智能交互层 · 客户触点</div>
+      <div class="ldesc">所有人和系统打交道的入口，语音视觉在此汇入</div>
+      <div class="chips"><span class="chip v">📞 AI 电话客服</span><span class="chip v">🎤 机器人语音交互</span><span class="chip v">💬 微信/小程序对话</span><span class="chip v">🖥 桌面/大屏坐席</span><span class="chip v">👁 现场摄像头视觉流</span><span class="chip v">📱 机器人机身屏幕</span></div></div>
+    <div class="arrowline">▼ 感知输入（语音流 / 视频流 / 文本）</div>
+    <div class="layer" style="border-color:rgba(155,123,255,.5)"><div class="lname">L2 智能大脑层 · 核心中台</div>
+      <div class="ldesc">大模型 + 场景知识库，负责"听懂人话、想清对策"</div>
+      <div class="chips"><span class="chip hl">🧠 场景大模型（行业微调）</span><span class="chip p">ASR/TTS 语音引擎</span><span class="chip p">视觉识别模型（人/物/险情）</span><span class="chip p">RAG 客户知识库（菜单/房型/SOP）</span><span class="chip p">工单生成器 LLM→任务结构化</span><span class="chip p">数字员工（AI 前台/AI 客服）</span></div></div>
+    <div class="arrowline">▼ 输出结构化工单（谁/去哪/干什么/多急）</div>
+    <div class="layer" style="border-color:rgba(255,184,77,.5)"><div class="lname">L3 调度指挥层</div>
+      <div class="ldesc">把工单变成机器人能执行的任务序列，并跨设备协同</div>
+      <div class="chips"><span class="chip">🚦 任务队列与优先级仲裁</span><span class="chip">🗺 多机路径规划与避堵</span><span class="chip">🔋 电量/载具状态管理</span><span class="chip">🛗 电梯/门禁/闸机物联</span><span class="chip">⏱ 分时复用编排（高峰送物/平峰清洁）</span><span class="chip">👨‍💼 Human-in-the-loop 人工兜底</span></div></div>
+    <div class="arrowline">▼ 下发执行指令（导航/动作/播报）</div>
+    <div class="layer"><div class="lname">L4 机器人设备层 · 执行集群</div>
+      <div class="ldesc">按行业选配的本体编队，同品牌或跨品牌接入</div>
+      <div class="chips"><span class="chip">📦 配送机器人（送物/送餐）</span><span class="chip">🧹 清洁机器人</span><span class="chip">🛡 巡检机器人（轮式/轨道）</span><span class="chip">🙋 迎宾导览机器人</span><span class="chip">🦾 专用机械臂（可选）</span></div></div>
+    <div class="arrowline">▼ 执行数据回流（轨迹/事件/异常）</div>
+    <div class="layer" style="border-color:rgba(56,217,195,.5)"><div class="lname">L5 运营管理层 · 客户看板</div>
+      <div class="ldesc">给客户老板和管理者用的经营视角后台</div>
+      <div class="chips"><span class="chip v">📊 数字驾驶舱（任务量/人效/ROI）</span><span class="chip v">📋 工单与事件记录</span><span class="chip v">📈 月度 AI 运营报告</span><span class="chip v">🛠 远程运维与告警</span></div></div>
+    <div class="archnote"><b>为什么这样设计：</b>「一脑多体」——L2 大脑和 L3 调度是全行业共用的同一套平台（摊薄研发成本），L1 触点和 L4 设备按行业换皮，L5 看板按行业换指标。客户换行业场景时不用换系统，只换"行业包"（话术库 + 识别模型 + 机器人组合 + KPI 模板），这就是"产品"而非"项目"的关键。</div>
+  </div>
+</div></section>
+
+<!-- ============ 避障感知与 SLAM ============ -->
+<section id="nav" style="background:var(--bg2)"><div class="wrap">
+  <div class="sec-head"><div class="kicker">04 · NAVIGATION</div><h2>移动机器人怎么"看见"并避开障碍？</h2>
+  <p>送餐/送物机器人能在人来人往的餐厅、酒店走廊里平稳穿行，靠的是一套「多传感器融合 + SLAM 算法」的立体感知系统，不是某一个传感器单打独斗。</p></div>
+
+  <div class="slam-intro">
+    <div class="big">一句话回答：<em>先用「眼睛们」看清世界，再用 SLAM 回答两个问题——"我在哪？""周围长什么样？"</em>，最后交给路径规划去"绕开走"。</div>
+    <div class="plain">单靠摄像头，光线一暗就抓瞎；单靠激光雷达，黑色玻璃和镜面会反射丢失；单靠超声波，远了测不准、近了易漏。所以真实产品里必须多传感器互补：<b>传感器负责"感知"，SLAM 负责"定位建图"，规划器负责"避障绕行"</b>，三层配合，缺一不可。</div>
+  </div>
+
+  <!-- 传感器融合 -->
+  <div class="sensorflow">
+    <div class="sensor"><div class="s-ic" style="background:rgba(79,107,255,.16)">📡</div><div class="s-name">激光雷达</div><div class="s-en">LiDAR</div><span class="s-role">骨干 · 测距主力</span>
+      <ul><li>360° 扫描测距，精度毫米级</li><li>不受光照影响，白天黑夜稳定</li><li>用于建图与全局定位</li></ul></div>
+    <div class="sensor"><div class="s-ic" style="background:rgba(56,217,195,.16)">🎥</div><div class="s-name">视觉相机</div><div class="s-en">Camera</div><span class="s-role">眼睛 · 语义识别</span>
+      <ul><li>识别障碍物种类（人/桌/椅）</li><li>RGB-D 深度相机直接出距离</li><li>补激光盲区：玻璃、镜面、低矮物</li></ul></div>
+    <div class="sensor"><div class="s-ic" style="background:rgba(255,184,77,.16)">📶</div><div class="s-name">超声波阵列</div><div class="s-en">Ultrasonic</div><span class="s-role">近距 · 贴身防护</span>
+      <ul><li>0.2-2m 近距离补盲</li><li>防碰撞传感器，触发即急停</li><li>透明玻璃、黑桌布等光学失效场景兜底</li></ul></div>
+    <div class="sensor"><div class="s-ic" style="background:rgba(155,123,255,.16)">🧭</div><div class="s-name">IMU + 轮式编码器</div><div class="s-en">IMU / Odom</div><span class="s-role">姿态 · 运动推算</span>
+      <ul><li>IMU 测加速度与角速度（姿态）</li><li>编码器测轮子转数（里程）</li><li>短时打滑、颠簸时维持位置估计</li></ul></div>
+  </div>
+  <div class="slam-note"><b>融合逻辑：</b>多传感器数据经过<b>时间对齐 → 坐标统一 → 加权融合</b>后，形成一张"代价地图"：激光负责"哪里能走"，视觉负责"那是什么"，超声波负责"贴身别碰"，IMU/里程计负责"我刚才动了多少"。任何单一传感器失效，系统仍能降级运行，这就是"立体感知"的含义。</div>
+
+  <!-- SLAM 核心 -->
+  <div class="slamgrid">
+    <div class="slamcard">
+      <h4>🧠 SLAM 是什么？</h4>
+      <div class="sub">Simultaneous Localization and Mapping · 同步定位与建图</div>
+      <div class="core"><b>核心思想：一边走路，一边画地图，一边在地图上确认自己走到哪了。</b>
+        <p>机器人刚进店时对场地一无所知。它边移动边扫描：把激光/视觉观测到的特征（墙、柱、桌腿）逐步拼成一张地图，同时利用"刚才看到过什么"反推"我现在在哪"。定位与建图互为前提，所以要<b>同时求解</b>。</p></div>
+      <ol>
+        <li><b>预测：</b>靠里程计/IMU 估算"我大概走了多少步"</li>
+        <li><b>观测：</b>激光/相机看到特征，如墙角、门框、桌腿</li>
+        <li><b>匹配：</b>把看到的特征与地图比对，算出最可能的位置</li>
+        <li><b>更新：</b>用观测修正预测，把新特征加入地图</li>
+        <li><b>回环：</b>走到曾来过的地方，检测到"回环"→ 全局修正，消除累积误差</li>
+      </ol>
+      <div class="equation">x<sub>t</sub> = argmax P( x<sub>t</sub> | z<sub>1:t</sub>, u<sub>1:t</sub>, m )<small>贝叶斯框架：在所有可能的位姿里，找"最可能"的那个——这是 SLAM 的数学本质</small></div>
+      <p style="font-size:13px;color:var(--sub)">说人话：机器人的大脑里不是存一张"照片"，而是存一个"概率分布"——它永远知道"我大概在这片区域，有多大的把握"。走得越久、看到的东西越多，把握越大。</p>
+    </div>
+    <div class="slamcard">
+      <h4>🗺 两种主流技术路线</h4>
+      <div class="sub">按传感器不同，分两大流派</div>
+      <div class="core"><b>LiDAR SLAM（激光雷达为主）——送餐机器人主流</b>
+        <p>用激光点云建 2D/3D 地图。精度高（cm 级）、对光照不敏感，商业送餐机器人普遍采用，代表算法 GMapping、Cartographer。局限：怕玻璃等透明障碍物（激光穿透）与空间狭小时点云退化。</p></div>
+      <div class="core"><b>Visual SLAM（视觉为主）——成本低、语义丰富</b>
+        <p>用相机图像估计位姿并建图（ORB-SLAM、VINS 等）。硬件成本低、能顺带做物体识别（区分桌子和人），但受光照、纹理影响大，常与 IMU 融合成 VIO 使用。</p></div>
+      <div class="core"><b>混合方案（Laser + Visual）—— 现在的高端产品</b>
+        <p>激光保证全局定位精度，视觉补语义与盲区，融合后既"测得准"又"看得懂"。本方案推荐配送/巡检机器人全部采用混合融合。</p></div>
+    </div>
+  </div>
+
+  <!-- 从感知到避障 -->
+  <div class="arch" style="margin-top:22px">
+    <div class="layer"><div class="lname">① 感知层 · 多传感器融合</div>
+      <div class="ldesc">激光 + 视觉 + 超声波 + IMU/里程计，输出"环境实时占用图"</div>
+      <div class="chips"><span class="chip">📡 激光点云</span><span class="chip">🎥 深度图像</span><span class="chip">📶 超声波回波</span><span class="chip">🧭 位姿估计</span></div></div>
+    <div class="arrowline">▼ 数据融合（时间对齐 + 坐标统一 + 贝叶斯/滤波）</div>
+    <div class="layer"><div class="lname">② 定位建图层 · SLAM</div>
+      <div class="ldesc">"我在哪" + "世界长什么样" 同时求解，产出全局地图与实时位姿</div>
+      <div class="chips"><span class="chip">🗺 栅格地图（2D Costmap）</span><span class="chip">📍 粒子滤波定位（AMCL）</span><span class="chip">🔁 回环检测与全局优化</span></div></div>
+    <div class="arrowline">▼ 地图 + 位姿</div>
+    <div class="layer"><div class="lname">③ 规划决策层 · 避障</div>
+      <div class="ldesc">全局规划找"大路线"，局部规划做"急转弯"，行为树做"礼让规则"</div>
+      <div class="chips"><span class="chip">🗺 全局路径规划（A* / Dijkstra）</span><span class="chip">🚦 局部避障（DWA / TEB）</span><span class="chip">👥 行人预测与礼让</span><span class="chip">⛔ 动态障碍检测 → 急停/绕行</span></div></div>
+    <div class="arrowline">▼ 下发运动指令（线速度 / 角速度）</div>
+    <div class="layer"><div class="lname">④ 执行层 · 底盘运动</div>
+      <div class="ldesc">双轮差速/全向轮执行速度指令，编码器实时反馈，形成闭环</div>
+      <div class="chips"><span class="chip">⚙️ 双轮差速底盘</span><span class="chip">🔁 闭环控制（PID）</span><span class="chip">🛑 碰撞急停冗余</span></div></div>
+    <div class="archnote"><b>为什么机器人"撞不到人"：</b>整套系统的响应链路只有几十毫秒到几百毫秒。发现行人 → 判定意图（要直走还是停）→ 减速/礼让/绕行，三层配合让机器人"看得见、认得出、让得开"，这才是送餐机器人真正安全的避障逻辑。</div>
+  </div>
+</div></section>
+
+<!-- ============ 五大行业方案 ============ -->
+<section id="scenes" style="background:var(--bg2)"><div class="wrap">
+  <div class="sec-head"><div class="kicker">05 · SCENARIOS</div><h2>五大行业交付方案</h2>
+  <p>点击标签切换行业。每个方案都包含：场景痛点 → 能力组合 → 设备清单 → 交付效果。</p></div>
+  <div class="tabs">
+    <button class="tab active" data-p="hotel" onclick="switchTab('hotel',this)">🏨 酒店</button>
+    <button class="tab" data-p="rest" onclick="switchTab('rest',this)">🍜 餐厅</button>
+    <button class="tab" data-p="mall" onclick="switchTab('mall',this)">🛍 商场</button>
+    <button class="tab" data-p="factory" onclick="switchTab('factory',this)">🏭 工厂</button>
+    <button class="tab" data-p="prop" onclick="switchTab('prop',this)">🏘 物业</button>
+  </div>
+
+  <!-- 酒店 -->
+  <div class="panel active" id="p-hotel"><div class="scene">
+    <div><img src="image-20260916031638-01-df61b9ef.jpg" alt="酒店送物机器人"><h3>酒店：AI 智能服务 + 机器人配送</h3>
+      <div class="who">适配：中高端连锁酒店 / 200 间房起</div>
+      <div class="matchrow"><span class="match need">痛点：夜班人手不足 / 客需响应慢 / 人力成本高</span></div>
+      <div class="kpirow"><div class="kpi"><b>85%+</b><span>客需配送无人化</span></div><div class="kpi"><b>3 分钟</b><span>平均送达时间</span></div><div class="kpi"><b>1.5-2 人</b><span>单店节省人力</span></div></div></div>
+    <div>
+      <table class="ptable"><tr><th>模块</th><th>交付内容</th><th>能力组合</th></tr>
+        <tr><td><b>AI 前台管家</b></td><td>电话/微信接听客需，识别 5 大类 1000+ 意图（送物、退房、报修、咨询），自动生成工单</td><td>语音 + 大模型</td></tr>
+        <tr><td><b>配送机器人</b></td><td>送物到房、叫梯、语音播报、拍照确认送达</td><td>调度 + 设备 + 视觉</td></tr>
+        <tr><td><b>分时复用清洁</b></td><td>白天配送、夜间自动清洁大堂与走廊</td><td>调度 + 设备</td></tr>
+        <tr><td><b>数字驾驶舱</b></td><td>客需热力图、响应时长、机器人利用率、月度经营报告</td><td>大模型 + 运营层</td></tr></table>
+      <div class="matchrow"><span class="match cap">设计思路：以「AI 调度为核心、人机协同」，覆盖住中服务全流程</span></div></div>
+  </div></div>
+
+  <!-- 餐厅 -->
+  <div class="panel" id="p-rest"><div class="scene">
+    <div><img src="image-20260916031643-01-caba9565.jpg" alt="餐厅送餐机器人"><h3>餐厅：智能传菜 + AI 点餐迎宾</h3>
+      <div class="who">适配：连锁正餐 / 火锅 / 烧烤，200㎡ 起</div>
+      <div class="matchrow"><span class="match need">痛点：传菜员招工难 / 高峰出餐拥堵 / 迎宾点餐人力浪费</span></div>
+      <div class="kpirow"><div class="kpi"><b>300 桌次/天</b><span>单机传菜能力</span></div><div class="kpi"><b>2-3 人</b><span>高峰节省传菜人力</span></div><div class="kpi"><b>ROI 8 个月</b><span>投入产出测算</span></div></div></div>
+    <div>
+      <table class="ptable"><tr><th>模块</th><th>交付内容</th><th>能力组合</th></tr>
+        <tr><td><b>传菜机器人</b></td><td>后厨到桌边自动传菜，多托盘分区，到桌语音播报</td><td>调度 + 设备 + 语音</td></tr>
+        <tr><td><b>AI 迎宾点餐</b></td><td>门口机器人语音迎宾、排队叫号；桌边扫码唤起 AI 点餐（推荐菜、忌口提醒）</td><td>语音 + 大模型</td></tr>
+        <tr><td><b>收台巡游</b></td><td>平峰时段机器人自动收台、引导回盘</td><td>调度 + 设备 + 视觉</td></tr>
+        <tr><td><b>经营看板</b></td><td>传菜时长、翻台率关联分析、机器人负载报表</td><td>运营层</td></tr></table>
+      <div class="matchrow"><span class="match cap">设计思路：单机传菜模式（餐饮连锁场景已规模验证），本方案叠加 AI 点餐与统一调度</span></div></div>
+  </div></div>
+
+  <!-- 商场 -->
+  <div class="panel" id="p-mall"><div class="scene">
+    <div><img src="image-20260916031728-01-f2821e38.jpg" alt="商场导览机器人"><h3>商场：智能导览 + 数字营销</h3>
+      <div class="who">适配：购物中心 / 城市综合体</div>
+      <div class="matchrow"><span class="match need">痛点：问询台人力成本 / 会员触达弱 / 活动转化难量化</span></div>
+      <div class="kpirow"><div class="kpi"><b>500+ 次/天</b><span>问询接待量</span></div><div class="kpi"><b>3-5 倍</b><span>活动信息触达提升</span></div><div class="kpi"><b>1 组</b><span>替代固定问询台</span></div></div></div>
+    <div>
+      <table class="ptable"><tr><th>模块</th><th>交付内容</th><th>能力组合</th></tr>
+        <tr><td><b>导览机器人</b></td><td>语音问询（找店/导航/活动），带路到店，多轮对话</td><td>语音 + 大模型 + 设备</td></tr>
+        <tr><td><b>数字营销中台</b></td><td>机器人屏幕+小程序推送优惠券，核销数据回流分析</td><td>大模型 + 运营层</td></tr>
+        <tr><td><b>安防巡游</b></td><td>闭店后巡场：人员滞留检测、消防通道占用识别</td><td>视觉 + 调度 + 设备</td></tr>
+        <tr><td><b>清洁协同</b></td><td>夜间中庭与公共区自动清洁，与巡场错峰调度</td><td>调度 + 设备</td></tr></table>
+      <div class="matchrow"><span class="match cap">差异化思路：把"问询成本中心"变成"营销触点"，这是商场版方案的核心价值</span></div></div>
+  </div></div>
+
+  <!-- 工厂 -->
+  <div class="panel" id="p-factory"><div class="scene">
+    <div><img src="image-20260916031735-01-53047d82.jpg" alt="工厂巡检机器人"><h3>工厂：无人巡检 + 安全监督</h3>
+      <div class="who">适配：制造车间 / 配电房 / 化工仓储（含防爆版）</div>
+      <div class="matchrow"><span class="match need">痛点：危险区域巡检风险 / 安全违规难管 / 夜班巡检空窗</span></div>
+      <div class="kpirow"><div class="kpi"><b>24h</b><span>全天候巡检覆盖</span></div><div class="kpi"><b>90%↓</b><span>高危区域人工进入</span></div><div class="kpi"><b>秒级</b><span>违规实时告警</span></div></div></div>
+    <div>
+      <table class="ptable"><tr><th>模块</th><th>交付内容</th><th>能力组合</th></tr>
+        <tr><td><b>巡检机器人</b></td><td>定时/事件触发巡线，红外测温、仪表读数、跑冒滴漏识别（轮式或挂轨）</td><td>设备 + 视觉 + 调度</td></tr>
+        <tr><td><b>AI 安全监督</b></td><td>接入厂区摄像头：安全帽、工服、区域入侵、烟火检测实时告警</td><td>视觉 + 大模型</td></tr>
+        <tr><td><b>AI 调度中心</b></td><td>告警自动触发就近机器人复核，工单闭环推送至安全员</td><td>大模型 + 调度</td></tr>
+        <tr><td><b>合规报表</b></td><td>巡检记录自动归档、隐患趋势分析、检查台账一键导出</td><td>大模型 + 运营层</td></tr></table>
+      <div class="matchrow"><span class="match cap">设计思路：电力/化工巡检机器人成熟品类（挂轨式配电房巡检已规模化），本方案加 AI 复核与闭环</span></div></div>
+  </div></div>
+
+  <!-- 物业 -->
+  <div class="panel" id="p-prop"><div class="scene">
+    <div><img src="image-20260916031740-01-798208c0.jpg" alt="物业巡检机器人"><h3>物业：园区安防 + 保洁一体化</h3>
+      <div class="who">适配：住宅园区 / 产业园区 / 写字楼</div>
+      <div class="matchrow"><span class="match need">痛点：保安保洁人力成本占比高 / 夜间安保风险 / 责任取证难</span></div>
+      <div class="kpirow"><div class="kpi"><b>30%↓</b><span>安保保洁人力成本</span></div><div class="kpi"><b>100%</b><span>夜间巡逻打卡留痕</span></div><div class="kpi"><b>5 分钟</b><span>异常事件响应</span></div></div></div>
+    <div>
+      <table class="ptable"><tr><th>模块</th><th>交付内容</th><th>能力组合</th></tr>
+        <tr><td><b>安防巡检</b></td><td>夜间自动巡逻：陌生人识别、违停占道、电瓶车上楼检测、火情预警</td><td>设备 + 视觉 + 调度</td></tr>
+        <tr><td><b>室外清洁</b></td><td>园区道路与广场自动清扫，雨天/结冰自动停机</td><td>调度 + 设备</td></tr>
+        <tr><td><b>业主服务</b></td><td>门岗机器人访客登记、语音对讲、快递暂存引导</td><td>语音 + 大模型 + 设备</td></tr>
+        <tr><td><b>物业驾驶舱</b></td><td>巡逻台账、事件处置闭环率、保洁覆盖率，月度对业主公示报告</td><td>运营层 + 大模型</td></tr></table>
+      <div class="matchrow"><span class="match cap">设计思路：园区/物业巡检机器人赛道已得到验证，本方案叠加 AI 报告与业主公示能力</span></div></div>
+  </div></div>
+</div></section>
+
+<!-- ============ 交付流程 ============ -->
+<section id="flow"><div class="wrap">
+  <div class="sec-head"><div class="kicker">06 · DELIVERY</div><h2>方案落地：30 天交付流程（标准交付方法论）</h2>
+  <p>标准化五步交付法，用"周"做颗粒度，把方案落地变成可执行的流水线。</p></div>
+  <div class="steps">
+    <div class="step"><span class="du">第 1 周</span><h4>勘察与方案设计</h4><p>现场测绘（通道宽度/电梯/网络），输出点位图与设备清单，客户确认排期</p></div>
+    <div class="step"><span class="du">第 2 周</span><h4>环境改造与设备进场</h4><p>电梯/门禁物联网改造，机器人进场，网络与充电桩部署</p></div>
+    <div class="step"><span class="du">第 3 周</span><h4>建图与知识库灌入</h4><p>机器人建图导航调试；客户话术库、菜单/房型/SOP 灌入大模型</p></div>
+    <div class="step"><span class="du">第 4 周</span><h4>联调试运行</h4><p>语音-工单-调度-执行全链路联调，影子运行 3 天（人机双轨校验）</p></div>
+    <div class="step"><span class="du">验收后</span><h4>培训与持续运营</h4><p>员工培训、驾驶舱移交；每月运营报告、季度话术与模型迭代</p></div>
+  </div>
+</div></section>
+
+<!-- ============ 风险边界 ============ -->
+<section id="risk"><div class="wrap">
+  <div class="sec-head"><div class="kicker">07 · HONESTY</div><h2>这个方案的边界与真实风险</h2>
+  <p>方案设计时不回避这些边界，提前想清楚反而让方案更可信。</p></div>
+  <div class="grid g3">
+    <div class="risk"><h4>⚠ 技术边界</h4><p>具身智能"真干活"能力仍在收敛期，复杂操作类任务（客房整理、厨房备餐）尚不可规模交付。</p><div class="fix">对策：方案只承诺"移动+交互+识别"类成熟能力，复杂任务走人机协同。</div></div>
+    <div class="risk"><h4>⚠ 责任与合规</h4><p>机器人撞人、误报、送错物的责任界定；人脸等视觉数据的合规采集与存储。</p><div class="fix">对策：合同明确保险与责任条款；视觉数据本地化存储，人脸功能默认关闭按需开启。</div></div>
+    <div class="risk"><h4>⚠ 客户组织阻力</h4><p>一线员工抵触"被替代"，经销商渠道担心被直营绕开。</p><div class="fix">对策：定位"替跑腿不替人"，只替代重复岗位并给员工转岗培训；渠道保留安装与运维分成。</div></div>
+    <div class="risk"><h4>⚠ 竞争格局</h4><p>酒店/餐饮场景已有头部厂商深耕多年，正面硬拼价格没有胜算。</p><div class="fix">对策：错位设计——把"智能大脑+跨品牌调度"中台面向已有机器人的客户，或主攻竞品薄弱的工厂/物业。</div></div>
+    <div class="risk"><h4>⚠ 交付规模化</h4><p>每个项目都要建图、改造、调试，做重了就变成"项目公司"。</p><div class="fix">对策：沉淀标准交付 SOP 与工具包（自动建图、话术模板库），把单店交付人天压缩到 5 人天以内。</div></div>
+  </div>
+</div></section>
+
+<!-- ============ 结语 ============ -->
+<footer>
+  <div class="wrap">
+    <p style="font-size:15px;color:var(--sub)">一句话总结：<b style="color:var(--txt)">这个产品方案 = 「智能数字员工（大脑）+ 智能调度（神经）+ 机器人集群（手脚）+ 立体感知（眼睛）」打包成一个行业化、30 天交付的服务系统。</b></p>
+    <p style="margin-top:14px;font-size:13px;color:var(--dim)">方案策划与内容创作：<b style="color:var(--c2)">佳佳</b> · 微信：<b style="color:var(--c2)">xiaojia_2020</b> · 欢迎交流合作</p>
+  </div>
+</footer>
+
+<script>
+function switchTab(id, btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p-'+id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});});
+});
+</script>
+</body>
+</html>
